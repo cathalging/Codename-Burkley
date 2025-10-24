@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Controller {
     GraphicsCards gpus = new GraphicsCards();
-    Devices devices = new Devices();
+    Usb usbs = new Usb();
 
     //GPU Info
     public void getGraphicsInfo() {
@@ -34,11 +34,29 @@ public class Controller {
 
     // USB Info
     public void getUsbInfo() {
-        List<UsbDevice> usbDeviceList = devices.getUsbList();
+        System.out.println("\nNames:");
+        for (String name : usbs.getNames()) {
+            System.out.println(name);
+        }
 
-        for (UsbDevice usbDevice : usbDeviceList) {
-            System.out.printf("%nName: %s%nProduct ID: %s%nSerial Number: %s%nVendor: %s%nVendor ID: %s%n",
-                    usbDevice.getName(), usbDevice.getProductId(), usbDevice.getSerialNumber(), usbDevice.getVendor(), usbDevice.getVendorId());
+        System.out.println("\nProduct IDs:");
+        for (String productId : usbs.getProductIds()) {
+            System.out.println(productId);
+        }
+
+        System.out.println("\nSerial Numbers:");
+        for (String serialNumber : usbs.getSerialNumbers()) {
+            System.out.println(serialNumber);
+        }
+
+        System.out.println("\nVendors:");
+        for (String vendor : usbs.getVendors()) {
+            System.out.println(vendor);
+        }
+
+        System.out.println("\nVendor IDs:");
+        for (String vendorIds : usbs.getVendorsId()) {
+            System.out.println(vendorIds);
         }
     }
 }

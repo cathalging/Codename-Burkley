@@ -9,6 +9,10 @@ public class Usb {
     private final SystemInfo si = new SystemInfo();
     private List<UsbDevice> usbDevices;
 
+    public Usb() {
+        refreshUsbList();
+    }
+
     public String[] getNames() {
         String[] names = new String[usbDevices.size()];
         int i = 0;
@@ -64,7 +68,7 @@ public class Usb {
         return vendorsId;
     }
 
-    private void refreshUsbList() {
+    public void refreshUsbList() {
         usbDevices = si.getHardware().getUsbDevices(false);
     }
 }

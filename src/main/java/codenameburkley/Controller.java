@@ -1,7 +1,12 @@
 package codenameburkley;
 
+import oshi.hardware.UsbDevice;
+
+import java.util.List;
+
 public class Controller {
     GraphicsCards gpus = new GraphicsCards();
+    Devices devices = new Devices();
 
     //GPU Info
     public void getGraphicsInfo() {
@@ -24,6 +29,16 @@ public class Controller {
         System.out.printf("%nVRams:");
         for (long VRam : gpus.getVRams()) {
             System.out.println(VRam);
+        }
+    }
+
+    // USB Info
+    public void getUsbInfo() {
+        List<UsbDevice> usbDeviceList = devices.getUsbList();
+
+        for (UsbDevice usbDevice : usbDeviceList) {
+            System.out.printf("%nName: %s%nProduct ID: %s%nSerial Number: %s%nVendor: %s%nVendor ID: %s%n",
+                    usbDevice.getName(), usbDevice.getProductId(), usbDevice.getSerialNumber(), usbDevice.getVendor(), usbDevice.getVendorId());
         }
     }
 }

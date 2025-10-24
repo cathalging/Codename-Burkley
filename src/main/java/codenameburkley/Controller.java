@@ -1,9 +1,5 @@
 package codenameburkley;
 
-import oshi.hardware.UsbDevice;
-
-import java.util.List;
-
 public class Controller {
     GraphicsCards gpus = new GraphicsCards();
     Usb usbs = new Usb();

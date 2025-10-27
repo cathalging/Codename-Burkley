@@ -14,35 +14,31 @@ public class CPU {
         cpu = si.getHardware().getProcessor();
     }
 
-    enum InfoFlags {
-        NAME,
-        IDENTIFIER,
-        VENDOR,
-        PROCESSORID,
-        ALL
+    public String getName() {
+        return cpu.getProcessorIdentifier().getName();
     }
 
-    public ArrayList<String> getCPUInfo(InfoFlags... flags) {
-        ArrayList<String> retValues = new ArrayList<String>();
+    public String getVendor() {
+        return cpu.getProcessorIdentifier().getVendor();
+    }
 
-        for (InfoFlags flag : flags)
-        {
-            switch (flag) {
-                case InfoFlags.NAME:
-                    retValues.add(cpu.getProcessorIdentifier().getName());
-                case InfoFlags.IDENTIFIER:
-                    retValues.add(cpu.getProcessorIdentifier().getIdentifier());
-                case InfoFlags.PROCESSORID:
-                    retValues.add(cpu.getProcessorIdentifier().getProcessorID());
-                case InfoFlags.VENDOR:
-                    retValues.add(cpu.getProcessorIdentifier().getVendor());
-                case ALL:
-                    retValues.add(cpu.getProcessorIdentifier().getName());
-                    retValues.add(cpu.getProcessorIdentifier().getIdentifier());
-                    retValues.add(cpu.getProcessorIdentifier().getProcessorID());
-                    retValues.add(cpu.getProcessorIdentifier().getVendor());
-            }
-        }
-        return retValues;
+    public String getMicroArc() {
+        return cpu.getProcessorIdentifier().getMicroarchitecture();
+    }
+
+    public int getCoreCount() {
+        return cpu.getPhysicalProcessorCount();
+    }
+
+    public int getThreadCount() {
+        return cpu.getLogicalProcessorCount();
+    }
+
+    public long getMaxFreq() {
+        return cpu.getMaxFreq() / 1000000;
+    }
+
+    public long[] getCurrentFreqs() {
+        return cpu.getCurrentFreq();
     }
 }

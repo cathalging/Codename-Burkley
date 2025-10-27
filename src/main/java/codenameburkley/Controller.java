@@ -7,6 +7,7 @@ import java.util.List;
 public class Controller {
     GraphicsCards gpus = new GraphicsCards();
     Usb usbs = new Usb();
+    CPU cpu = new CPU();
 
     //GPU Info
     public void getGraphicsInfo() {
@@ -58,5 +59,10 @@ public class Controller {
         for (String vendorIds : usbs.getVendorsId()) {
             System.out.println(vendorIds);
         }
+    }
+
+    //CPU Info
+    public void getCPUInfo() {
+        
     }
 }

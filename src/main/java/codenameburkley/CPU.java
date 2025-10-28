@@ -2,6 +2,7 @@ package codenameburkley;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
+import java.util.List;
 
 public class CPU {
     private CentralProcessor cpu;
@@ -37,8 +38,8 @@ public class CPU {
         return cpu.getLogicalProcessorCount();
     }
 
-    public long getMaxFreq() {
-        return cpu.getMaxFreq() / 1000000;
+    public double getMaxFreq() {
+        return cpu.getMaxFreq() / 1.0e9;
     }
 
     public long[] getCurrentFreqs() {
@@ -52,6 +53,15 @@ public class CPU {
             sum += (currFreqs[i] / 1.0e9);
         }
         return sum / getCoreCount();
+    }
+
+    public String getCacheInfo() {
+        List<CentralProcessor.ProcessorCache> caches = cpu.getProcessorCaches();
+        String retString = "";
+        for (CentralProcessor.ProcessorCache cache : caches) {
+            retString += String.format("Level: %d, Size: %d, Type: %s, Line Size: %d%n", cache.getLevel(), cache.getCacheSize(), cache.getType(), cache.getLineSize());
+        }
+        return retString;
     }
 
     public void startThread() {

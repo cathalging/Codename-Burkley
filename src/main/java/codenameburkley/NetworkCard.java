@@ -1,4 +1,7 @@
 package codenameburkley;
+import oshi.SystemInfo;
+import oshi.hardware.NetworkIF;
+import java.util.List;
 
 public class NetworkCard {
     protected SystemInfo si = new SystemInfo();
@@ -12,12 +15,12 @@ public class NetworkCard {
         refreshNetworkList(includeLocal);
     }
 
-    public String[] getDisplayNames() {
+    public String[] getNames() {
         String[] names = new String[networkIfs.size()];
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            names[i] = networkIfs.getName();
+            names[i] = networkIf.getName();
             i++;
         }
 
@@ -29,7 +32,7 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            indices[i] = networkIfs.getIndex();
+            indices[i] = networkIf.getIndex();
             i++;
         }
 
@@ -41,7 +44,7 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            displayNames[i] = networkIfs.getDisplayName();
+            displayNames[i] = networkIf.getDisplayName();
             i++;
         }
 
@@ -53,7 +56,7 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            macaddrs[i] = networkIfs.getMacaddr();
+            macaddrs[i] = networkIf.getMacaddr();
             i++;
         }
 
@@ -65,7 +68,7 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            ipv4addrs[i] = networkIfs.getIPv4addr();
+            //ipv4addrs[i] = networkIf.getIPv4addr();
             i++;
         }
 
@@ -77,7 +80,7 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            ipv6addrs[i] = networkIfs.getIPv6addr();
+            //ipv6addrs[i] = networkIf.getIPv6addr();
             i++;
         }
 
@@ -89,7 +92,7 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            speeds[i] = networkIfs.getSpeed();
+            speeds[i] = networkIf.getSpeed();
             i++;
         }
 
@@ -97,9 +100,9 @@ public class NetworkCard {
     }
 
     public void refreshNetworkList(boolean includeLocal) {
-        if (includeLocal):
+        if (includeLocal)
             networkIfs = si.getHardware().getNetworkIFs(true);
-        else:
+        else
             networkIfs = si.getHardware().getNetworkIFs();
     }
 }

@@ -6,9 +6,13 @@ public class Main {
 
         //c.getGraphicsInfo();
 
+        c.getStaticCPUInfo();
+        c.getLiveAvgCPUFreq();
+        /*
         OS os = new OS();
         os.getProcessUsage();
         c.getUsbInfo();
         c.getNetworkInfo();
+         */
     }
 }

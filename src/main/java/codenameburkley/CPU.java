@@ -27,7 +27,7 @@ public class CPU {
     }
 
     public String getMicroArc() {
-        return cpu.getProcessorIdentifier().getMicroarchitecture();
+        return cpu.getProcessorIdentifier().getMicroarchitecture() + " " + System.getProperty("os.arch");
     }
 
     public int getCoreCount() {
@@ -59,7 +59,7 @@ public class CPU {
         List<CentralProcessor.ProcessorCache> caches = cpu.getProcessorCaches();
         String retString = "";
         for (CentralProcessor.ProcessorCache cache : caches) {
-            retString += String.format("Level: %d, Size: %d, Type: %s, Line Size: %d%n", cache.getLevel(), cache.getCacheSize(), cache.getType(), cache.getLineSize());
+            retString += String.format("Level: %d, Size: %dKB, Type: %s, Line Size: %d bytes %n", cache.getLevel(), cache.getCacheSize(), cache.getType(), cache.getLineSize());
         }
         return retString;
     }

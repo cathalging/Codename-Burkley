@@ -62,9 +62,39 @@ public class Controller {
         }
     }
 
-    //CPU Info
-    public void getCPUInfo() {
-        
+    //CPU Info that won't change
+    public void getStaticCPUInfo() {
+        System.out.println("CPU Name: " + cpu.getName());
+        System.out.println("CPU Vendor: " + cpu.getVendor());
+        System.out.println("CPU Arc: " + cpu.getMicroArc());
+        System.out.println("CPU Max Frequency: " + cpu.getMaxFreq() + "GHz");
+        System.out.println("CPU Core Count: " + cpu.getCoreCount());
+        System.out.println("CPU Thread Count: " + cpu.getThreadCount());
+        System.out.println("CPU Cache Info: \n" + cpu.getCacheInfo());
+    }
+
+    //subject to change @ runtime
+    public void getFreq() { //should be in a while(true) loop or something similar - if not I can implement in cpu class - also consider running on separate thread - sean
+        System.out.println("Average Frequency" + cpu.getAverageFreq());
+        long[] currFreqs = cpu.getCurrentFreqs();
+        String header = "";
+        for (int i = 0; i < currFreqs.length; i++) {
+            header += String.format("Core %d", i+1);
+        }
+        System.out.println(header);
+        for (int i = 0; i < currFreqs.length; i++) {
+            System.out.println(currFreqs[i] + " ");
+        }
+    }
+
+    //call when want to start displaying load
+    public void getCPULoad() {
+        cpu.startThread();
+    }
+
+    //call when stop wanting to display load
+    public void endCPULoad() {
+        cpu.endThread();
     }
 
     //Network Info

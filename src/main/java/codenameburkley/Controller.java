@@ -121,13 +121,13 @@ public class Controller {
         System.out.println("Capacities");
         long[] capcities = mem.getCapacity();
         for (long capacity : capcities) {
-            System.out.println(capacity);
+            System.out.println(capacity + "GB");
         }
 
         System.out.println("Speeds");
         long[] speeds = mem.getSpeed();
         for (long speed : speeds) {
-            System.out.println(speed);
+            System.out.println(speed + "MGHz");
         }
 
         System.out.println("Types");

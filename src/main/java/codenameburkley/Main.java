@@ -9,5 +9,6 @@ public class Main {
         OS os = new OS();
         os.getProcessUsage();
         c.getUsbInfo();
+        c.getNetworkInfo();
     }
 }

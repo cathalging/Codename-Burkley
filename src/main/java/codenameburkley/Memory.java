@@ -92,7 +92,7 @@ public class Memory {
         int i = 0;
 
         for (PhysicalMemory ram : stickList) {
-            capacity[i] = ram.getCapacity();
+            capacity[i] = ram.getCapacity() / BYTES_PER_GB;
             i++;
         }
         return capacity;
@@ -102,7 +102,7 @@ public class Memory {
         int i = 0;
 
         for (PhysicalMemory ram : stickList) {
-            speed[i] = ram.getCapacity();
+            speed[i] = ram.getClockSpeed() / 1_000_000;
             i++;
         }
         return speed;
@@ -112,7 +112,7 @@ public class Memory {
         int i = 0;
 
         for (PhysicalMemory ram : stickList) {
-            type[i] = ram.getBankLabel();
+            type[i] = ram.getMemoryType();
             i++;
         }
         return type;

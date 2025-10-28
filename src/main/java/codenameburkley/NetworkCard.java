@@ -1,9 +1,8 @@
 package codenameburkley;
-I
+
 import oshi.SystemInfo;
 import oshi.hardware.NetworkIF;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class NetworkCard {
@@ -66,8 +65,8 @@ public class NetworkCard {
         return macaddrs;
     }
 
-    public String[] getIPv4addrs() {
-        String[][] ipv4addrs = new String[networkIfs.size()];
+    public String[][] getIPv4addrs() {
+        String[][] ipv4addrs = new String[networkIfs.size()][];
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
@@ -78,8 +77,8 @@ public class NetworkCard {
         return ipv4addrs;
     }
 
-    public String[] getIPv6addr() {
-        String[][] ipv6addrs = new String[networkIfs.size()];
+    public String[][] getIPv6addr() {
+        String[][] ipv6addrs = new String[networkIfs.size()][];
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {

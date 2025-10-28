@@ -6,14 +6,15 @@ import oshi.hardware.CentralProcessor;
 public class CPU {
     private CentralProcessor cpu;
     private SystemInfo si;
-    CPULoad cpuLoad = new CPULoad();
-    Thread thread = new Thread(cpuLoad);
+    private CPULoad cpuLoad;
+    private Thread thread;
 
     public CPU()
     {
         si = new SystemInfo();
         cpu = si.getHardware().getProcessor();
-        thread.start();
+        cpuLoad = new CPULoad();
+        thread = new Thread(cpuLoad);
     }
 
     public String getName() {
@@ -43,23 +44,48 @@ public class CPU {
     public long[] getCurrentFreqs() {
         return cpu.getCurrentFreq();
     }
+
+    public double getAverageFreq() {
+        long[] currFreqs = getCurrentFreqs();
+        double sum = 0;
+        for (int i = 0; i < currFreqs.length; i++) {
+            sum += (currFreqs[i] / 1.0e9);
+        }
+        return sum / getCoreCount();
+    }
+
+    public void startThread() {
+        thread.start();
+    }
+
+    public void endThread() {
+        cpuLoad.endThread();
+    }
 }
 
 class CPULoad implements Runnable {
-    SystemInfo si = new SystemInfo();
-    CentralProcessor cpu = si.getHardware().getProcessor();
+    private SystemInfo si;
+    private CentralProcessor cpu;
+    private volatile boolean running;
+
+    CPULoad() {
+        si = new SystemInfo();
+        cpu = si.getHardware().getProcessor();
+        running = true;
+    }
 
     @Override
     public void run() {
-        while (true) {
+        while (running) {
             System.out.println(calcCPULoad());
         }
+        System.out.println("Thread Stopped");
     }
 
     public double calcCPULoad() {
         long[] prevTicks = cpu.getSystemCpuLoadTicks();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(300);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,5 +102,9 @@ class CPULoad implements Runnable {
 
         long totalCPU = user + nice + sys + idle + iowait + irq + softirq + steal;
         return (double) (totalCPU - idle) / totalCPU * 100;
+    }
+
+    public void endThread() {
+        running = false;
     }
 }

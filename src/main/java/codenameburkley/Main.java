@@ -6,8 +6,6 @@ public class Main {
 
         //c.getGraphicsInfo();
 
-        CPU cpu = new CPU();
-
         OS os = new OS();
         os.getProcessUsage();
         c.getUsbInfo();

@@ -112,7 +112,7 @@ public class Controller {
     }
 
     public void getRAMInfo() {
-        System.out.println("%nBrand Labels");
+        System.out.println("\nBrand Labels");
         String[] names = mem.getNames();
         for (String name : names) {
             System.out.println(name);

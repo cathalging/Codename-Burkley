@@ -87,9 +87,9 @@ class CPULoad implements Runnable {
     @Override
     public void run() {
         while (running) {
-            System.out.println(calcCPULoad());
+            System.out.printf("%nCPU Load: %.2f", calcCPULoad());
         }
-        System.out.println("Thread Stopped");
+        System.out.println("%nThread Stopped");
     }
 
     public double calcCPULoad() {

@@ -6,15 +6,21 @@ public class Main {
 
         //c.getGraphicsInfo();
 
-        //c.getStaticCPUInfo();
-
-        //OS os = new OS();
-        //os.getProcessUsage();
+        OS os = new OS();
+        os.getProcessUsage();
         //c.getUsbInfo();
         //c.getNetworkInfo();
-        //c.getCPUFreq();
+        c.getStaticCPUInfo();
+        c.getCPUFreq();
         c.getMemoryInfo();
         c.getVirtualMemInfo();
         c.getRAMInfo();
+        c.getCPULoad();
+        try {
+            Thread.sleep(10000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        c.endCPULoad();
     }
 }

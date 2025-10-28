@@ -6,13 +6,15 @@ public class Main {
 
         //c.getGraphicsInfo();
 
-        c.getStaticCPUInfo();
-        c.getLiveAvgCPUFreq();
-        /*
-        OS os = new OS();
-        os.getProcessUsage();
-        c.getUsbInfo();
-        c.getNetworkInfo();
-         */
+        //c.getStaticCPUInfo();
+
+        //OS os = new OS();
+        //os.getProcessUsage();
+        //c.getUsbInfo();
+        //c.getNetworkInfo();
+        //c.getCPUFreq();
+        c.getMemoryInfo();
+        c.getVirtualMemInfo();
+        c.getRAMInfo();
     }
 }

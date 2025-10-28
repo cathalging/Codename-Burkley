@@ -9,6 +9,7 @@ public class Controller {
     Usb usbs = new Usb();
     CPU cpu = new CPU();
     NetworkCard networkCard = new NetworkCard(true);
+    Memory mem = new Memory();
 
     //GPU Info
     public void getGraphicsInfo() {
@@ -74,16 +75,16 @@ public class Controller {
     }
 
     //subject to change @ runtime
-    public void getFreq() { //should be in a while(true) loop or something similar - if not I can implement in cpu class - also consider running on separate thread - sean
-        System.out.println("Average Frequency" + cpu.getAverageFreq());
+    public void getCPUFreq() { //should be in a while(true) loop or something similar - if not I can implement in cpu class - also consider running on separate thread - sean
+        System.out.printf("%nAverage Frequency: %.2fGHz%n", cpu.getAverageFreq());
         long[] currFreqs = cpu.getCurrentFreqs();
         String header = "";
         for (int i = 0; i < currFreqs.length; i++) {
-            header += String.format("Core %d", i+1);
+            header += String.format("CPU %d,  ", i+1);
         }
         System.out.println(header);
         for (int i = 0; i < currFreqs.length; i++) {
-            System.out.println(currFreqs[i] + " ");
+            System.out.printf("%.2fGHz ", currFreqs[i] / 1.0e9);
         }
     }
 
@@ -95,6 +96,45 @@ public class Controller {
     //call when stop wanting to display load
     public void endCPULoad() {
         cpu.endThread();
+    }
+
+    public void getMemoryInfo() {
+        System.out.printf("%nTotal Memory: %.2fGB || %.2fGib", mem.getMemGB(), mem.getMemGiB());
+        System.out.printf("%nUsed Memory: %.2fGB || %.2fGib", mem.getUsedMemGB(), mem.getUsedMemGiB());
+        System.out.printf("%nFree Memory: %.2fGB || %.2fGib", mem.getUnusedMemGB(), mem.getUnusedMemGiB());
+    }
+
+    public void getVirtualMemInfo() {
+        System.out.printf("%nTotal Swap Memory: %.2fGB || %.2fGiB", mem.swapMemTotalGB(), mem.swapMemTotalGiB());
+        System.out.printf("%nSwap Memory Used: %.2fGB || %.2fGiB", mem.swapMemUsedGB(), mem.swapMemUsedGiB());
+        System.out.printf("%nSwap Memory Pages In: %.2fKB || %.2fKiB", mem.swapMemPagesInKB(), mem.swapMemPagesInKiB());
+        System.out.printf("%nSwap Memory Pages Out: %.2fKB || %.2fkiB", mem.swapPagesOutKB(), mem.swapPagesOutKiB());
+    }
+
+    public void getRAMInfo() {
+        System.out.println("%nBrand Labels");
+        String[] names = mem.getNames();
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+        System.out.println("Capacities");
+        long[] capcities = mem.getCapacity();
+        for (long capacity : capcities) {
+            System.out.println(capacity);
+        }
+
+        System.out.println("Speeds");
+        long[] speeds = mem.getSpeed();
+        for (long speed : speeds) {
+            System.out.println(speed);
+        }
+
+        System.out.println("Types");
+        String[] types = mem.getType();
+        for (String type : types) {
+            System.out.println(type);
+        }
     }
 
     //Network Info

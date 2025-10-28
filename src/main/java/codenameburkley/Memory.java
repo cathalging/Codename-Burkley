@@ -14,58 +14,65 @@ public class Memory {
     SystemInfo si = new SystemInfo();
     GlobalMemory memory = si.getHardware().getMemory();
 
-    long total = memory.getTotal(); //long is 64 bit and is exact, double is not exact.
-    long available = memory.getAvailable(); // just initialising variables here
-    long used = total - available;
+    double total = memory.getTotal();
+    double available = memory.getAvailable();
+    double used = total - available;
 
-    public long getMemGB() {
-        long total = memory.getTotal();
+    VirtualMemory swap = memory.getVirtualMemory();
+
+    public double getMemGB() {
         return (total / BYTES_PER_GB);
     }
 
-    public long getUsedMemGB() {
-        long total = memory.getTotal();
-        long available = memory.getAvailable();
-        long used = total - available;
+    public double getUsedMemGB() {
         return (used / BYTES_PER_GB);
     }
 
-    public long getUnusedMemGB() {
-        long total = memory.getAvailable();
+    public double getUnusedMemGB() {
         return (available / BYTES_PER_GB);
     }
-    public long getMemGiB() {
-        long total = memory.getTotal();
+    public double getMemGiB() {
         return (total / BYTES_PER_GiB);
     }
 
-    public long getUsedMemGiB() {
-        long total = memory.getTotal();
-        long available = memory.getAvailable();
-        long used = total - available;
+    public double getUsedMemGiB() {
         return (used / BYTES_PER_GiB);
     }
 
-    public long getUnusedMemGiB() {
-        long total = memory.getAvailable();
+    public double getUnusedMemGiB() {
         return (available / BYTES_PER_GiB);
     }
 
-    public long swapMemTotal() {
-        VirtualMemory swap = memory.getVirtualMemory();
-        return swap.getSwapTotal();
+    public double swapMemTotalGB() {
+        return (double) swap.getSwapTotal() / BYTES_PER_GB;
     }
-    public long swapMemUsed() {
-        VirtualMemory swap = memory.getVirtualMemory();
-        return swap.getSwapUsed();
+
+    public double swapMemTotalGiB() {
+        return (double) swap.getSwapTotal() / BYTES_PER_GiB;
     }
-    public long swapMemPagesIn() {
-        VirtualMemory swap = memory.getVirtualMemory();
-        return swap.getSwapPagesIn();
+
+    public double swapMemUsedGB() {
+        return (double) swap.getSwapUsed() / BYTES_PER_GB;
     }
-    public long swapPagesOut() {
-        VirtualMemory swap = memory.getVirtualMemory();
-        return swap.getSwapPagesOut();
+
+    public double swapMemUsedGiB() {
+        return (double) swap.getSwapUsed() / BYTES_PER_GiB;
+    }
+
+    public double swapMemPagesInKB() {
+        return (double) swap.getSwapPagesIn() / 1000;
+    }
+
+    public double swapMemPagesInKiB() {
+        return (double) swap.getSwapPagesIn() / 1024;
+    }
+
+    public double swapPagesOutKB() {
+        return (double) swap.getSwapPagesOut() / 1000;
+    }
+
+    public double swapPagesOutKiB() {
+        return (double) swap.getSwapPagesOut() / 1024;
     }
 
     protected List<PhysicalMemory> stickList = memory.getPhysicalMemory();

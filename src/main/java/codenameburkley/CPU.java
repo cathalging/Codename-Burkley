@@ -54,17 +54,6 @@ public class CPU {
         cpuFreq.endThread();
     }
 
-    /*
-    public double getAverageFreq() {
-        long[] currFreqs = getCurrentFreqs();
-        double sum = 0;
-        for (int i = 0; i < currFreqs.length; i++) {
-            sum += (currFreqs[i] / 1.0e9);
-        }
-        return sum / getCoreCount();
-    }
-     */
-
     public String getCacheInfo() {
         List<CentralProcessor.ProcessorCache> caches = cpu.getProcessorCaches();
         String retString = "";

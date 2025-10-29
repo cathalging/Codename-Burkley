@@ -27,5 +27,6 @@ public class Main {
             e.printStackTrace();
         }
         c.endCPUFreq();
+        c.getPCIDevices();
     }
 }

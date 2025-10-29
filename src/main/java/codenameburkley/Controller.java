@@ -1,7 +1,5 @@
 package codenameburkley;
 
-import oshi.hardware.UsbDevice;
-
 import java.util.List;
 
 public class Controller {
@@ -48,7 +46,7 @@ public class Controller {
             System.out.println(productId);
         }
 
-        System.out.println("\nSerial Numbers:");
+       System.out.println("\nSerial Numbers:");
         for (String serialNumber : usbs.getSerialNumbers()) {
             System.out.println(serialNumber);
         }

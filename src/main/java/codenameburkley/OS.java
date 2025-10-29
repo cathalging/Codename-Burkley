@@ -2,16 +2,15 @@ package codenameburkley;
 
 import oshi.SystemInfo;
 import oshi.software.os.*;
-import java.util.List;
+import java.util.*;
 import java.lang.Thread;
-import java.util.HashMap;
 
 public class OS {
     protected SystemInfo si = new SystemInfo();
     private final OperatingSystem os = si.getOperatingSystem();
 
     private List<OSProcess> processes = os.getProcesses();
-    private HashMap<String, Double> processUsage = new HashMap<>();
+    private TreeMap<String, Double> processUsage = new TreeMap<>();
 
     public String getFamily() {
         return os.getFamily();
@@ -61,7 +60,9 @@ public class OS {
                     }
                 }
 
-                processUsage.forEach((key, value) -> System.out.println(key + " " + value));
+                for (Map.Entry<String, Double> entry: processUsage.descendingMap().entrySet()){
+                    System.out.printf("Process: " + entry.getKey() + "\nValue: " + entry.getValue() + "\n\n");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

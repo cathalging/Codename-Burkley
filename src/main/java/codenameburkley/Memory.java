@@ -15,8 +15,8 @@ public class Memory {
     GlobalMemory memory = si.getHardware().getMemory();
 
     double total = memory.getTotal();
-    double available = memory.getAvailable();
-    double used = total - available;
+    double available;
+    double used;
 
     VirtualMemory swap = memory.getVirtualMemory();
 
@@ -25,10 +25,13 @@ public class Memory {
     }
 
     public double getUsedMemGB() {
+        available = memory.getAvailable();
+        used = total - available;
         return (used / BYTES_PER_GB);
     }
 
     public double getUnusedMemGB() {
+        available = memory.getAvailable();
         return (available / BYTES_PER_GB);
     }
     public double getMemGiB() {
@@ -36,10 +39,13 @@ public class Memory {
     }
 
     public double getUsedMemGiB() {
+        available = memory.getAvailable();
+        used = total - available;
         return (used / BYTES_PER_GiB);
     }
 
     public double getUnusedMemGiB() {
+        available = memory.getAvailable();
         return (available / BYTES_PER_GiB);
     }
 

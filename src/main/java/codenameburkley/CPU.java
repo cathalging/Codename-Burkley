@@ -8,14 +8,18 @@ public class CPU {
     private CentralProcessor cpu;
     private SystemInfo si;
     private CPULoad cpuLoad;
-    private Thread thread;
+    private CPUFreq cpuFreq;
+    private Thread loadThread;
+    private Thread freqThread;
 
     public CPU()
     {
         si = new SystemInfo();
         cpu = si.getHardware().getProcessor();
         cpuLoad = new CPULoad();
-        thread = new Thread(cpuLoad);
+        cpuFreq = new CPUFreq();
+        loadThread = new Thread(cpuLoad);
+        freqThread = new Thread(cpuFreq);
     }
 
     public String getName() {
@@ -42,10 +46,15 @@ public class CPU {
         return cpu.getMaxFreq() / 1.0e9;
     }
 
-    public long[] getCurrentFreqs() {
-        return cpu.getCurrentFreq();
+    public void startFreqThread() {
+        freqThread.start();
     }
 
+    public void endFreqThread() {
+        cpuFreq.endThread();
+    }
+
+    /*
     public double getAverageFreq() {
         long[] currFreqs = getCurrentFreqs();
         double sum = 0;
@@ -54,6 +63,7 @@ public class CPU {
         }
         return sum / getCoreCount();
     }
+     */
 
     public String getCacheInfo() {
         List<CentralProcessor.ProcessorCache> caches = cpu.getProcessorCaches();
@@ -64,11 +74,11 @@ public class CPU {
         return retString;
     }
 
-    public void startThread() {
-        thread.start();
+    public void startLoadThread() {
+        loadThread.start();
     }
 
-    public void endThread() {
+    public void endLoadThread() {
         cpuLoad.endThread();
     }
 }
@@ -87,9 +97,8 @@ class CPULoad implements Runnable {
     @Override
     public void run() {
         while (running) {
-            System.out.printf("%nCPU Load: %.2f", calcCPULoad());
+            System.out.printf("\rCPU Load: %.2f%%", calcCPULoad());
         }
-        System.out.println("%nThread Stopped");
     }
 
     public double calcCPULoad() {
@@ -112,6 +121,51 @@ class CPULoad implements Runnable {
 
         long totalCPU = user + nice + sys + idle + iowait + irq + softirq + steal;
         return (double) (totalCPU - idle) / totalCPU * 100;
+    }
+
+    public void endThread() {
+        running = false;
+    }
+}
+
+class CPUFreq implements Runnable {
+    private SystemInfo si;
+    private CentralProcessor cpu;
+    private volatile boolean running;
+    int coreCount;
+    String header = "";
+
+    CPUFreq() {
+        si = new SystemInfo();
+        cpu = si.getHardware().getProcessor();
+        running = true;
+        coreCount = cpu.getLogicalProcessorCount();
+        for (int i = 0; i < coreCount; i++) {
+            if (i+1 < 10) header += String.format("CPU %d   ", i+1);
+            else header += String.format("CPU %d  ", i+1);
+        }
+        header += "AVG";
+    }
+
+    @Override
+    public void run() {
+        System.out.println("\n" + header);
+        while (running) {
+            System.out.print("\r" + printFreqs());
+        }
+    }
+
+    public String printFreqs() {
+        long[] currFreqs = cpu.getCurrentFreq();
+        String retStr = "";
+        double sum = 0;
+        for (int i = 0; i < currFreqs.length; i++) {
+            double currFreq = currFreqs[i] / 1.0e9;
+            retStr += String.format("%.2fGHz ", currFreq);
+            sum += currFreq;
+        }
+        retStr += String.format("%.2fGHz", sum / coreCount);
+        return retStr;
     }
 
     public void endThread() {

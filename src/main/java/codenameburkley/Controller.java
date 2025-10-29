@@ -74,6 +74,7 @@ public class Controller {
         System.out.println("CPU Cache Info: \n" + cpu.getCacheInfo());
     }
 
+    /*
     //subject to change @ runtime
     public void getCPUFreq() { //should be in a while(true) loop or something similar - if not I can implement in cpu class - also consider running on separate thread - sean
         System.out.printf("%nAverage Frequency: %.2fGHz%n", cpu.getAverageFreq());
@@ -84,18 +85,29 @@ public class Controller {
         }
         System.out.println(header);
         for (int i = 0; i < currFreqs.length; i++) {
-            System.out.printf("%.2fGHz ", currFreqs[i] / 1.0e9);
+            System.out.printf("%n%.2fGHz ", currFreqs[i] / 1.0e9);
         }
+    }
+     */
+
+    //call when want to start displaying freq thread
+    public void getCPUFreq() {
+        cpu.startFreqThread();
+    }
+
+    //call when stop wanting to display freq
+    public void endCPUFreq() {
+        cpu.endFreqThread();
     }
 
     //call when want to start displaying load
     public void getCPULoad() {
-        cpu.startThread();
+        cpu.startLoadThread();
     }
 
     //call when stop wanting to display load
     public void endCPULoad() {
-        cpu.endThread();
+        cpu.endLoadThread();
     }
 
     public void getMemoryInfo() {

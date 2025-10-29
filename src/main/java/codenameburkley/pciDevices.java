@@ -30,6 +30,7 @@ public class pciDevices {
             while (reader.readLine() != null) {
                 parseLine(reader.readLine());
             }
+            proc.waitFor();
         } catch (Exception e) {
             e.printStackTrace();
         }

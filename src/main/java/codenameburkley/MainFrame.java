@@ -21,6 +21,10 @@ public class MainFrame extends JFrame {
         mainPanel.add(new HomePage(this), "Home");
         mainPanel.add(new CPUPage(this), "CPUPage");
         mainPanel.add(new MemoryPage(this), "MemoryPage");
+        mainPanel.add(new GPUPage(this), "GPUPage");
+        mainPanel.add(new DiskPage(this), "DiskPage");
+        mainPanel.add(new NetworkPage(this), "NetworkPage");
+        mainPanel.add(new OSPage(this), "OSPage");
 
         add(mainPanel);
         setVisible(true);

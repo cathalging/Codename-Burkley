@@ -1,21 +1,13 @@
 package codenameburkley;
+
 import oshi.SystemInfo;
 import oshi.hardware.HWDiskStore;
 import oshi.hardware.HardwareAbstractionLayer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-    class DiskData {
-    public String model;
-    public String serial;
-    public long sizeBytes;
-    public long readBytes;
-    public long writeBytes;
-    public long readCount;
-    public long writeCount;
-    public long transferTimeMs;
-}
-    class DiskInfoService {
+public class DiskInfoService {
 
     private final SystemInfo si = new SystemInfo();
     private final HardwareAbstractionLayer hal = si.getHardware();

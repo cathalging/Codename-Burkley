@@ -5,12 +5,11 @@ import oshi.hardware.UsbDevice;
 import java.util.List;
 
 public class Controller {
-    private final GraphicsCards gpus = new GraphicsCards();
-    private final Usb usbs = new Usb();
-    private final CPU cpu = new CPU();
-    private final NetworkCard networkCard = new NetworkCard(true);
-    private final Memory mem = new Memory();
-    private final pciDevices pci = new pciDevices();
+    GraphicsCards gpus = new GraphicsCards();
+    Usb usbs = new Usb();
+    CPU cpu = new CPU();
+    NetworkCard networkCard = new NetworkCard(true);
+    Memory mem = new Memory();
 
     //GPU Info
     public void getGraphicsInfo() {
@@ -64,21 +63,6 @@ public class Controller {
         }
     }
 
-    public void getPCIDevices() {
-        List<PciDevice> devices = pci.getDevices();
-
-        for (PciDevice d : devices) {
-            System.out.printf("%nBus Address: %s | Class: %s | Vendor & Device Name: %s | VendorID: %s | DeviceID: %s | Class Code: %s",
-                    d.getBusAddress(), d.getClasses(), d.getVendorDeviceNames(), d.getVendorIds(), d.getDeviceIds(), d.getClassCodes());
-        }
-/*
-        for (int i = 0; i < pci.getBusAddresses().size(); i++) {
-            System.out.printf("%nBus Address: %s | Class: %s | Vendor & Device Name: %s | VendorID: %s | DeviceID: %s | Class Code: %s",
-                    pci.getBusAddresses().get(i), pci.getClasses().get(i), pci.getVendorDeviceNames().get(i), pci.getVendorIds().get(i), pci.getDeviceIds().get(i), pci.getClassCodes().get(i));
-        }
- */
-    }
-
     //CPU Info that won't change
     public void getStaticCPUInfo() {
         System.out.println("CPU Name: " + cpu.getName());
@@ -90,24 +74,28 @@ public class Controller {
         System.out.println("CPU Cache Info: \n" + cpu.getCacheInfo());
     }
 
-    //call when want to start displaying freq thread
-    public void getCPUFreq() {
-        cpu.startFreqThread();
-    }
-
-    //call when stop wanting to display freq
-    public void endCPUFreq() {
-        cpu.endFreqThread();
+    //subject to change @ runtime
+    public void getCPUFreq() { //should be in a while(true) loop or something similar - if not I can implement in cpu class - also consider running on separate thread - sean
+        System.out.printf("%nAverage Frequency: %.2fGHz%n", cpu.getAverageFreq());
+        long[] currFreqs = cpu.getCurrentFreqs();
+        String header = "";
+        for (int i = 0; i < currFreqs.length; i++) {
+            header += String.format("CPU %d,  ", i+1);
+        }
+        System.out.println(header);
+        for (int i = 0; i < currFreqs.length; i++) {
+            System.out.printf("%.2fGHz ", currFreqs[i] / 1.0e9);
+        }
     }
 
     //call when want to start displaying load
     public void getCPULoad() {
-        cpu.startLoadThread();
+        cpu.startThread();
     }
 
     //call when stop wanting to display load
     public void endCPULoad() {
-        cpu.endLoadThread();
+        cpu.endThread();
     }
 
     public void getMemoryInfo() {
@@ -181,4 +169,49 @@ public class Controller {
             System.out.println(speed);
         }
     }
+    public void getDiskInfo() {
+        DiskInfoService service = new DiskInfoService();
+        List<DiskData> disks = service.getDisks();
+        {
+            System.out.println("Models: ");
+            for (DiskData d : disks)
+                System.out.println(d.model);
+        }
+        {
+            System.out.println("Serial: ");
+            for (DiskData d : disks)
+                System.out.println(d.serial);
+        }
+        {
+            System.out.println("Size: ");
+            for (DiskData d : disks)
+                System.out.println(d.sizeBytes + "GB");
+        }
+        {
+            System.out.println("Read: ");
+            for (DiskData d : disks)
+                System.out.println(d.readBytes + "GB");
+        }
+        {
+            System.out.println("Write: ");
+            for (DiskData d : disks)
+                System.out.println(d.writeBytes + "GB");
+        }
+        {
+            System.out.println("Read count: ");
+            for (DiskData d : disks)
+                System.out.println(d.readCount);
+        }
+        {
+            System.out.println("Write count: ");
+            for (DiskData d : disks)
+                System.out.println(d.writeCount);
+        }
+        {
+            System.out.println("Transfer time: ");
+            for (DiskData d : disks)
+                System.out.println(d.transferTimeMs + " Miliseconds");
+        }
+    }
+}
 }

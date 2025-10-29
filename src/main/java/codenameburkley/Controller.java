@@ -65,10 +65,18 @@ public class Controller {
     }
 
     public void getPCIDevices() {
+        List<PciDevice> devices = pci.getDevices();
+
+        for (PciDevice d : devices) {
+            System.out.printf("%nBus Address: %s | Class: %s | Vendor & Device Name: %s | VendorID: %s | DeviceID: %s | Class Code: %s",
+                    d.getBusAddress(), d.getClasses(), d.getVendorDeviceNames(), d.getVendorIds(), d.getDeviceIds(), d.getClassCodes());
+        }
+/*
         for (int i = 0; i < pci.getBusAddresses().size(); i++) {
             System.out.printf("%nBus Address: %s | Class: %s | Vendor & Device Name: %s | VendorID: %s | DeviceID: %s | Class Code: %s",
                     pci.getBusAddresses().get(i), pci.getClasses().get(i), pci.getVendorDeviceNames().get(i), pci.getVendorIds().get(i), pci.getDeviceIds().get(i), pci.getClassCodes().get(i));
         }
+ */
     }
 
     //CPU Info that won't change

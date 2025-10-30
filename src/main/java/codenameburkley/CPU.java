@@ -11,6 +11,8 @@ public class CPU {
     private CPUFreq cpuFreq;
     private Thread loadThread;
     private Thread freqThread;
+    private static String currLoad;
+    private static String currFreq;
 
     public CPU()
     {
@@ -63,6 +65,12 @@ public class CPU {
         return retString;
     }
 
+    public static void setCurrLoad(String xCurrLoad) { currLoad = xCurrLoad; }
+    public String getCurrLoad() { return currLoad; }
+
+    public static void setCurrFreq(String xCurrFreq) { currFreq = xCurrFreq; }
+    public String getCurrFreq() { return currFreq; }
+
     public void startLoadThread() {
         loadThread.start();
     }
@@ -86,7 +94,7 @@ class CPULoad implements Runnable {
     @Override
     public void run() {
         while (running) {
-            System.out.printf("\rCPU Load: %.2f%%", calcCPULoad());
+            CPU.setCurrLoad(String.format("CPU Load: %.2f%%", calcCPULoad()));
         }
     }
 
@@ -129,18 +137,20 @@ class CPUFreq implements Runnable {
         cpu = si.getHardware().getProcessor();
         running = true;
         coreCount = cpu.getLogicalProcessorCount();
+        /*
         for (int i = 0; i < coreCount; i++) {
             if (i+1 < 10) header += String.format("CPU %d   ", i+1);
             else header += String.format("CPU %d  ", i+1);
         }
         header += "AVG";
+         */
     }
 
     @Override
     public void run() {
-        System.out.println("\n" + header);
+        //System.out.println("\n" + header);
         while (running) {
-            System.out.print("\r" + printFreqs());
+            CPU.setCurrFreq(printFreqs());
         }
     }
 

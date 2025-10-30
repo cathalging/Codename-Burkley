@@ -19,10 +19,11 @@ public class CPUPage extends JPanel {
         JLabel microarchitecture = new JLabel("Microarchitecture: " + cpu.getMicroArc());
         JLabel coreCount = new JLabel("Core Count: " + cpu.getCoreCount());
         JLabel threadCount = new JLabel("Thread Count: " + cpu.getThreadCount());
-        JLabel maxFreq = new JLabel("Max Frequency: " + cpu.getMaxFreq());
+        JLabel maxFreq = new JLabel("Max Frequency: " + cpu.getMaxFreq() +"GHz");
 
         JButton back = new JButton("Back");
         back.addActionListener(e -> frame.showPage("Home"));
+
 
         add(title);
 

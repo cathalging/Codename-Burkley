@@ -72,18 +72,25 @@ public class Controller {
         System.out.println("CPU Cache Info: \n" + cpu.getCacheInfo());
     }
 
-    //call when want to start displaying freq thread
-    public void getCPUFreq() {
+    //subject to change @ runtime
+    public void startCPUFreq() {
         cpu.startFreqThread();
     }
 
-    //call when stop wanting to display freq
     public void endCPUFreq() {
         cpu.endFreqThread();
     }
 
+    public String getCPUFreq() {
+        return cpu.getCurrFreq();
+    }
+
+    public String getCPULoad() {
+        return cpu.getCurrLoad();
+    }
+
     //call when want to start displaying load
-    public void getCPULoad() {
+    public void startCPULoad() {
         cpu.startLoadThread();
     }
 

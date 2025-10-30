@@ -14,6 +14,7 @@ public class HomePage extends JPanel {
         JButton diskPage = new JButton("Disk");
         JButton networkPage = new JButton("Network");
         JButton osPage = new JButton("OS");
+        JButton liveCPUPage = new JButton("Live CPU Info");
 
         cpuPage.addActionListener(e -> frame.showPage("CPUPage"));
         memPage.addActionListener(e -> frame.showPage("MemoryPage"));
@@ -21,6 +22,7 @@ public class HomePage extends JPanel {
         diskPage.addActionListener(e -> frame.showPage("DiskPage"));
         networkPage.addActionListener(e -> frame.showPage("NetworkPage"));
         osPage.addActionListener(e -> frame.showPage("OSPage"));
+        liveCPUPage.addActionListener(e -> frame.showPage("LiveCPUPage"));
 
         add(cpuPage);
         add(memPage);
@@ -28,5 +30,6 @@ public class HomePage extends JPanel {
         add(diskPage);
         add(networkPage);
         add(osPage);
+        add(liveCPUPage);
     }
 }

@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(new NetworkPage(this), "NetworkPage");
         mainPanel.add(new OSPage(this), "OSPage");
         mainPanel.add(new LiveCPUPage(this), "LiveCPUPage");
+        mainPanel.add(new PCIPage(this), "PCIPage");
 
         add(mainPanel);
         setVisible(true);

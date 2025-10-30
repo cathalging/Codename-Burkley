@@ -11,6 +11,7 @@ public class LiveCPUPage extends JPanel {
     private JLabel load;
     private JLabel headerLabel;
     private JLabel freq;
+    JLabel title;
     private JButton back;
     boolean running;
     int coreCount;
@@ -19,6 +20,8 @@ public class LiveCPUPage extends JPanel {
     public LiveCPUPage(MainFrame frame) {
         cpu = new CPU();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        title = new JLabel("Live CPU Info");
+        title.setFont(new Font("Serif", Font.BOLD, 32));
         back = new JButton("Back");
         running = true;
         load = new JLabel("Starting...");
@@ -34,6 +37,7 @@ public class LiveCPUPage extends JPanel {
         back.addActionListener(e -> stop());
         back.addActionListener(e -> frame.showPage("Home"));
 
+        add(title);
         add(load);
         add(headerLabel);
         add(freq);

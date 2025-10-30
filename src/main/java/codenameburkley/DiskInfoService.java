@@ -21,9 +21,9 @@ public class DiskInfoService {
             DiskData d = new DiskData();
             d.model = disk.getModel();
             d.serial = disk.getSerial();
-            d.sizeBytes = disk.getSize() / 1_000_000_000;
-            d.readBytes = disk.getReadBytes() / 1_000_000_000;
-            d.writeBytes = disk.getWriteBytes() / 1_000_000_000;
+            d.sizeBytes = (double) disk.getSize() / 1_000_000_000;
+            d.readBytes = (double) disk.getReadBytes() / 1_000_000_000;
+            d.writeBytes = (double) disk.getWriteBytes() / 1_000_000_000;
             d.readCount = disk.getReads();
             d.writeCount = disk.getWrites();
             d.transferTimeMs = disk.getTransferTime();

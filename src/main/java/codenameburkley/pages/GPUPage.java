@@ -33,7 +33,7 @@ public class GPUPage extends JPanel {
             gpuPanel.add(new JLabel("  Device ID: " + deviceIds[i]));
             gpuPanel.add(new JLabel("  Vendor: " + vendors[i]));
             gpuPanel.add(new JLabel("  Version Info: " + versionInfos[i]));
-            gpuPanel.add(new JLabel("  VRAM: " + vrams[i] + " bytes"));
+            gpuPanel.add(new JLabel("  VRAM: " + (double) vrams[i] / (1024 * 1024 * 1024) + " GiBs"));
             gpuPanel.add(Box.createRigidArea(new Dimension(0, 5))); // spacing between GPUs
         }
 

@@ -211,7 +211,7 @@ public class Controller {
         {
             System.out.println("Transfer time: ");
             for (DiskData d : disks)
-                System.out.println(d.transferTimeMs + " Miliseconds");
+                System.out.println(d.transferTimeMs + " Milliseconds");
         }
     }
 }

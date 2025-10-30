@@ -7,7 +7,6 @@ import codenameburkley.MainFrame;
 import codenameburkley.OS;
 import oshi.software.os.OSProcess;
 import codenameburkley.CPU;
-import oshi.software.os.OperatingSystem;
 
 public class OSPage extends JPanel {
     private final OS os = new OS();

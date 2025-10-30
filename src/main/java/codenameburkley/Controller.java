@@ -46,7 +46,7 @@ public class Controller {
         }
 
        System.out.println("\nSerial Numbers:");
-        for (String serialNumber : usbs.getSerialNumbers()) {
+        for (String serialNumber : usbs.getUniqueDeviceIds()) {
             System.out.println(serialNumber);
         }
 

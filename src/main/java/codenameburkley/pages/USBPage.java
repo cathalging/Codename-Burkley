@@ -22,7 +22,7 @@ public class USBPage extends JPanel {
 
         setLayout(new BorderLayout());
 
-        String[] columnNames = {"Name", "Product ID", "Serial Number", "Vendor"};
+        String[] columnNames = {"Name", "Product ID", "Unique Device ID", "Vendor"};
         tableModel = new DefaultTableModel(columnNames, 0);
         usbTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(usbTable);
@@ -48,7 +48,7 @@ public class USBPage extends JPanel {
 
         String[] names = usb.getNames();
         String[] productIds = usb.getProductIds();
-        String[] serialNumbers = usb.getSerialNumbers();
+        String[] serialNumbers = usb.getUniqueDeviceIds();
         String[] vendors = usb.getVendors();
 
         for (int i = 0; i < names.length; i++) {

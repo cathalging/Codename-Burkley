@@ -64,7 +64,7 @@ public class NetworkPage extends JPanel {
                 long[] updatedSpeeds = networkCard.getSpeeds();
                 SwingUtilities.invokeLater(() -> {
                     for (int i = 0; i < updatedSpeeds.length && i < speedLabels.length; i++) {
-                        speedLabels[i].setText("Speed: " + updatedSpeeds[i] + " bps");
+                        speedLabels[i].setText("Speed: " + updatedSpeeds[i] + " MBps");
                     }
                 });
 

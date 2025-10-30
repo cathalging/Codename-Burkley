@@ -35,12 +35,12 @@ public class Usb {
         return productIds;
     }
 
-    public String[] getSerialNumbers() {
+    public String[] getUniqueDeviceIds() {
         String[] serialNumbers = new String[usbDevices.size()];
         int i = 0;
 
         for (UsbDevice usb: usbDevices) {
-            serialNumbers[i] = usb.getName();
+            serialNumbers[i] = usb.getUniqueDeviceId();
             i++;
         }
         return serialNumbers;
@@ -51,7 +51,7 @@ public class Usb {
         int i = 0;
 
         for (UsbDevice usb: usbDevices) {
-            vendors[i] = usb.getName();
+            vendors[i] = usb.getVendor();
             i++;
         }
         return vendors;
@@ -62,7 +62,7 @@ public class Usb {
         int i = 0;
 
         for (UsbDevice usb: usbDevices) {
-            vendorsId[i] = usb.getName();
+            vendorsId[i] = usb.getVendorId();
             i++;
         }
         return vendorsId;

@@ -94,7 +94,8 @@ public class NetworkCard {
         int i = 0;
 
         for (NetworkIF networkIf : networkIfs) {
-            speeds[i] = networkIf.getSpeed();
+            long bPerMB = 8_000_000_000L;
+            speeds[i] = networkIf.getSpeed() / bPerMB;
             i++;
         }
 
